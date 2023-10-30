@@ -163,12 +163,20 @@ function formatAveragesTable(data) {
 
 	const row = document.createElement('tr');
 
+	const allImages = data.pages.flatMap((page) => page.images).map((image) => image.src);
+	const uniqueImages = new Set(allImages);
+
+	const allExternalLinks = data.pages.flatMap((page) => page.links).filter((link) => link.isExternal).map((link) => link.href);
+	const uniqueExternalLinks = new Set(allExternalLinks);
+	const allInternalLinks = data.pages.flatMap((page) => page.links).filter((link) => !link.isExternal).map((link) => link.href);
+	const uniqueInternalLinks = new Set(allInternalLinks);
+
 	row.innerHTML = `
 		<td>${data.averages.titleLength}</td>
 		<td>${data.averages.wordCount}</td>
 		<td>${data.averages.loadTimeInMs}ms</td>
-		<td>${data.averages.images}</td>
-		<td>${data.averages.links}</td>
+		<td>${data.averages.images} (Total: ${allImages.length}, Unique: ${uniqueImages.size})</td>
+		<td>${data.averages.links} (Total (Int./Ext./Sum): ${allInternalLinks.length}/${allExternalLinks.length}/${allInternalLinks.length + allExternalLinks.length}, Unique (Int./Est./Sum): ${uniqueInternalLinks.size}/${uniqueExternalLinks.size}/${uniqueInternalLinks.size + uniqueExternalLinks.size})</td>
 	`;
 
 	table.querySelector('tbody').appendChild(row);
