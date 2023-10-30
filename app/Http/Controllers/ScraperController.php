@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use voku\helper\HtmlDomParser;
 use voku\helper\SimpleHtmlDomInterface;
 
-class ScraperController extends Controller
+class CrawlerController extends Controller
 {
     private function countWordsOnPage(HtmlDomParser $dom) {
         $nodesInnerText = $dom->findMulti('body > *:not(script)')->innertext();

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ScraperController;
+use App\Http\Controllers\CrawlerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +19,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/crawl', [ScraperController::class, 'crawl']);
+Route::post('/crawl', [CrawlerController::class, 'crawl']);
 
-Route::post('/crawl-recursive', [ScraperController::class, 'crawlRecursive']);
+Route::post('/crawl-recursive', [CrawlerController::class, 'crawlRecursive']);
